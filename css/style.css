@@ -1,0 +1,66 @@
+:root {
+  --dice-width: 200px;
+}
+body {
+  background-color: black;
+}
+
+.dice > img {
+  display: block;
+}
+
+.dice {
+  width: 250px;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+button {
+  width: 250px;
+  height: 70px;
+  font-size: 2em;
+  border-radius: 10px;
+  background-color: black;
+  border: 5px solid white;
+  color: white;
+  cursor: pointer;
+}
+
+.dice-spacer {
+  width: var(--dice-width);
+}
+
+#hi {
+  margin-top: 25px;
+  width: var(--dice-width);
+  height: 200px;
+  font-size: 1.5em;
+  background-color: black;
+  color: white;
+  border: 5px solid white;
+  cursor: pointer;
+}
+
+.dice.locked {
+  border: 5px solid red;
+}
+
+.dice-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 1em;
+}
+
+.controls #rollBtn {
+  font-size: 2em;
+}
+
+p {
+  color: white;
+}

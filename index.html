@@ -1,0 +1,102 @@
+<html lang="en">
+  <!doctype html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/style.css" />
+    <script src="/js/dice.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="controls">
+        <p
+          style="color: white; font-size: 75px; margin-bottom: 0; margin-top: 0"
+          id="total"
+        >
+          0
+        </p>
+      </div>
+      <div class="dice-container">
+        <div class="dice-spacer"></div>
+        <div class="dice"></div>
+        <div id="newDiceCont">
+          <button id="hi"></button>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button id="rollBtn" onclick="rollDice()">Roll</button>
+      </div>
+    </div>
+    <script>
+      const diceContainers = document.querySelectorAll(".dice");
+      const currency = document.getElementById("total");
+      const rollBtn = document.getElementById("rollBtn");
+      let DiceCost = 100;
+      let num = 1;
+      let multiplier = 1;
+      let dice = [];
+      let cost = 10;
+      diceContainers.forEach((di, idx) => {
+        //di is the current html element in the array
+        //idx is thei ndex of the array
+        dice.push(new DiceContainer(di));
+      });
+
+      // function rollDice(){
+      //   dice.forEach((d)=>{
+      //     d.roll();
+      //   })
+      //   calculateDiceTotal()
+
+      // }
+
+      let createDice = document.getElementById("hi");
+      createDice.innerHTML = `New Dice:<br>${DiceCost}`;
+      let diceDiv = document.querySelector(".dice-container");
+      let multCost = 100;
+      let multInc = 2;
+
+      createDice.addEventListener("click", function () {
+        console.log(Number(currency.innerHTML) - DiceCost);
+        if (Number(currency.innerHTML) - DiceCost >= 0) {
+          if (num <= 100000) {
+            currency.innerHTML = currency.innerHTML - DiceCost;
+            num++;
+            let elem = document.createElement("div");
+            diceDiv.appendChild(elem);
+            let newDice = new DiceContainer(elem, 1, multCost, multInc);
+            multCost *= 10;
+            multInc *= 2;
+            console.log(dice);
+            dice.push(newDice);
+            DiceCost *= 10;
+            createDice.innerHTML = `New Dice:<br>${DiceCost}`;
+            diceDiv.appendChild(createDice);
+          }
+        }
+      });
+
+      async function rollDice() {
+        rollBtn.disabled = true;
+        let rolls = [];
+        for (let d of dice) {
+          rolls.push(d.dice.roll()); //rolls is an array of promises
+        }
+        //await - requires being run in an async environment
+        await Promise.all(rolls); //stop executing until all promises are complete
+        rollBtn.disabled = false;
+        currency.innerHTML = Number(currency.innerHTML) + calculateDiceTotal();
+      }
+
+      function calculateDiceTotal() {
+        let total = 0;
+        dice.forEach((d) => {
+          total += d.value;
+        });
+        return total;
+      }
+    </script>
+  </body>
+</html>
