@@ -3,9 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>
+      Super ultra cool amazing beautiful really well done perfect super good
+      dice Document
+    </title>
     <link rel="stylesheet" href="./css/style.css" />
     <script src="/js/dice.js"></script>
+    <link rel="icon" href="fortnite.jpg" />
   </head>
   <body>
     <div class="container">
@@ -14,22 +18,23 @@
           style="color: white; font-size: 75px; margin-bottom: 0; margin-top: 0"
           id="total"
         >
-          999999999999999999999999999
+          0
         </p>
       </div>
       <div class="dice-container">
         <div class="dice-spacer"></div>
-        <div class="dice"></div>
+        <div class="dice" style="position: relative">
+          <p id="bigNumber" style="position: absolute; top: -50; right: 100">
+            fortnite
+          </p>
+        </div>
         <button id="hi"></button>
-
       </div>
 
       <div class="controls">
         <button id="rollBtn" onclick="rollDice()">Roll</button>
       </div>
-      <div>
-        <p id="bigNumber">fortnite</p>
-      </div>
+      <div></div>
     </div>
     <script>
       const diceContainers = document.querySelectorAll(".dice");
