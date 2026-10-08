@@ -75,7 +75,7 @@ class Dice {
     this.container.classList.add("dice");
     this.face = this.createFace();
 
-    this.addClickHandler();
+    //this.addClickHandler();
   }
 
   get value() {

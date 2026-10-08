@@ -14,25 +14,29 @@
           style="color: white; font-size: 75px; margin-bottom: 0; margin-top: 0"
           id="total"
         >
-          0
+          999999999999999999999999999
         </p>
       </div>
       <div class="dice-container">
         <div class="dice-spacer"></div>
         <div class="dice"></div>
-        <div id="newDiceCont">
-          <button id="hi"></button>
-        </div>
+        <button id="hi"></button>
+
       </div>
 
       <div class="controls">
         <button id="rollBtn" onclick="rollDice()">Roll</button>
+      </div>
+      <div>
+        <p id="bigNumber">fortnite</p>
       </div>
     </div>
     <script>
       const diceContainers = document.querySelectorAll(".dice");
       const currency = document.getElementById("total");
       const rollBtn = document.getElementById("rollBtn");
+      const boom = new Audio("audio/gun.mp3");
+      const biggerNumber = document.getElementById("bigNumber");
       let DiceCost = 100;
       let num = 1;
       let multiplier = 1;
@@ -79,6 +83,7 @@
       });
 
       async function rollDice() {
+        randomizeBigNumberStartX();
         rollBtn.disabled = true;
         let rolls = [];
         for (let d of dice) {
@@ -86,8 +91,15 @@
         }
         //await - requires being run in an async environment
         await Promise.all(rolls); //stop executing until all promises are complete
-        rollBtn.disabled = false;
+        boom.play();
         currency.innerHTML = Number(currency.innerHTML) + calculateDiceTotal();
+        console.log(calculateDiceTotal());
+        biggerNumber.innerHTML = calculateDiceTotal();
+        biggerNumber.classList.add("bigNumber");
+        biggerNumber.addEventListener("animationend", function () {
+          biggerNumber.classList.remove("bigNumber");
+          rollBtn.disabled = false;
+        });
       }
 
       function calculateDiceTotal() {
@@ -97,6 +109,21 @@
         });
         return total;
       }
+
+      const bigNumber = document.getElementById("bigNumber");
+
+      function randomizeBigNumberStartX() {
+        const randomX = Math.floor(Math.random() * 301) - 150;
+        document.documentElement.style.setProperty(
+          "--big-number-start-x",
+          `${randomX}px`,
+        );
+      }
+
+      bigNumber.addEventListener(
+        "animationiteration",
+        randomizeBigNumberStartX,
+      );
     </script>
   </body>
 </html>
